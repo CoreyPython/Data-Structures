@@ -9,6 +9,9 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+
+from queue import Queue
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -68,17 +71,44 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if self.left is not None:
+            self.left.in_order_print(self.left)
+        print(self.value)
+        if self.right is not None:
+            self.right.in_order_print(self.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = []
+        queue.insert(0, node)
+        while len(queue) != 0:
+            node = queue.pop()
+            print(node.value)
+            if node.left is not None:
+                queue.insert(0, node.left)
+            if node.right is not None:
+                queue.insert(0, node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # Make a stack
+        stack = []
+        # Push the node on to the stack
+        stack.append(node)
+        # As long as the Stack is not empty
+        while len(stack) != 0:
+            # Pop off of the Stack, this is our currentNode
+            node = stack.pop()
+            print(node.value)
+            # Put the kids of the current node in the Stack
+            if node.left is not None:
+                stack.append(node.left)
+            if node.right is not None:
+                stack.append(node.right)
+
+
 
     # Stretch Goals -------------------------
     # Note: Research may be required
